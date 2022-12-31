@@ -1,0 +1,25 @@
+services:
+  db: 
+    image: mariadb
+    volumes:
+      - my_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=123
+      - MARIADB_DATABASE=User
+      - MARIADB_USER=wordpress
+      - MARIADB_PASSWORD=123
+    ports:
+      - 3306:3306
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=123
+      - WORDPRESS_DB_NAME=User
+volumes:
+  my_data:
